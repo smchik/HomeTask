@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GH Ivanov</string>
+    <string name="title_section1">Welcome</string>
+    <string name="title_section2">Animations</string>
+    <string name="title_section3">Minecraft</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="zoom_in_button">Zoom In</string>
+    <string name="zoom_out_button">Zoom Out</string>
+    <string name="fade_in_button">Fade In</string>
+    <string name="fade_out_button">Fade Out</string>
+    <string name="rotate_button">Rotate</string>
+    <string name="vibrate_button">Vibrate</string>
+
+    <string name="search_hint">Search tool...</string>
+
+    <string name="tool">Tools</string>
+
+
+    <string-array name="tool_name">
+        <item>Pickaxe</item>
+        <item>Axe</item>
+        <item>Shovel</item>
+        <item>Sword</item>
+        <item>Bow</item>
+        <item>Arrow</item>
+        <item>Helmet</item>
+        <item>Chestplate</item>
+        <item>Leggings</item>
+        <item>Boots</item>
+    </string-array>
+
+    <string-array name="tool_description">
+        <item>Pickaxes are one of the most commonly used tools in the game, being required to mine all ores and many other types of blocks.</item>
+        <item>Axes are tools used to ease the process of collecting wood based items.</item>
+        <item>Shovels are tools used to ease the process of collecting dirt and other blocks.</item>
+        <item>Swords are the most effective melee weapon for killing creatures and players. Many blocks can be destroyed quicker with a sword, although it comes at the cost of 2 durability points to the sword.</item>
+        <item>Used as a weapon to fire arrows. To fire, make it your active item and right-click to shoot it. There must be arrows in your inventory. Bows are effective weapons for killing dangerous creatures from far away.</item>
+        <item>Arrows can be fired with a bow, or out of a dispenser, to damage players and creatures. When fired on a parallel plane, arrows will fly ~15 blocks. When fired at a 45 degree angle, they will fly ~50 blocks. Arrows can be picked up after they are fired.</item>
+        <item>Head armor adds extra protection, preventing damage from attacks, falling, drowning and fire. Protection is displayed via a separate health bar with up to 10 armor points. Damage reduction is calculated from a percentage of effective armor points. Each armor point reduces the damage taken by 8%, 80% being the maximum reduction with 10 armor points.</item>
+        <item>Chest armor adds extra protection, preventing damage from attacks, falling, drowning, and fire. Protection is displayed via a separate health bar with up to 10 armor points. Damage reduction is calculated from a percentage of effective armor points. Each armor point reduces the damage taken by 8%, 80% being the maximum reduction with 10 armor points.</item>
+        <item>Leg armor adds extra protection, preventing damage from attacks, falling, drowning and fire. Protection is displayed via a separate health bar with up to 10 armor points. Damage reduction is calculated from a percentage of effective armor points. Each armor point reduces the damage taken by 8%, 80% being the maximum reduction with 10 armor points.</item>
+        <item>Foot armor adds extra protection, preventing damage from attacks, falling, drowning, and fire. Protection is displayed via a separate health bar with up to 10 armor points. Damage reduction is calculated from a percentage of effective armor points. Each armor point reduces the damage taken by 8%, 80% being the maximum reduction with 10 armor points.</item>
+    </string-array>
+
+</resources>
