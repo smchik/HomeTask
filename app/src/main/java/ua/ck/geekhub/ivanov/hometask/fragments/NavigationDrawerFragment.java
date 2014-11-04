@@ -1,17 +1,16 @@
 package ua.ck.geekhub.ivanov.hometask.fragments;
 
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -79,7 +78,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition, new WelcomeFragment());
+        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -97,17 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        selectItem(position, new WelcomeFragment());
-                        break;
-                    case 1:
-                        selectItem(position, new AnimationFragment());
-                        break;
-                    case 2:
-                        selectItem(position, new MinecraftListFragment());
-                        break;
-                }
+                selectItem(position);
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
@@ -121,6 +110,19 @@ public class NavigationDrawerFragment extends Fragment {
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
+    }
+
+    private Fragment getNewFragment(int position) {
+        switch (position) {
+            case 0:
+                return new WelcomeFragment();
+            case 1:
+                return new AnimationFragment();
+            case 2:
+                return new MinecraftListFragment();
+            default:
+                return null;
+        }
     }
 
     public boolean isDrawerOpen() {
@@ -201,12 +203,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(int position, Fragment fragment) {
-        // update the main content by replacing fragments
-//        Bundle args = new Bundle();
-//        args.putInt("Что то там", position);
-//        fragment.setArguments(args);
-
+    private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
@@ -217,10 +214,8 @@ public class NavigationDrawerFragment extends Fragment {
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
-
-        Fragment f = fragment;
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        Fragment fragment = getNewFragment(position);
+        getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
     @Override
