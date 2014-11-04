@@ -3,6 +3,7 @@ package ua.ck.geekhub.ivanov.hometask.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import ua.ck.geekhub.ivanov.hometask.R;
@@ -18,10 +19,22 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        tool = (Tool) getIntent().getSerializableExtra(MinecraftInfoFragment.EXTRA_TOOL);
+        //TODO: назначить действие кнопке:
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Fragment fragment = MinecraftInfoFragment.newInstance(tool);
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().add(R.id.container_info, fragment).commit();
+        //check landscape mode
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            finish();
+            return;
+        }
+
+        if (savedInstanceState == null){
+            tool = (Tool) getIntent().getSerializableExtra(MinecraftInfoFragment.EXTRA_TOOL);
+
+            Fragment fragment = MinecraftInfoFragment.newInstance(tool);
+            FragmentManager fm = getFragmentManager();
+            fm.beginTransaction().add(R.id.container_info, fragment).commit();
+        }
     }
 }

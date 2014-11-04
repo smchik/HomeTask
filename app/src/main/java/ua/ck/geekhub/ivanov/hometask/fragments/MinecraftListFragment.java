@@ -26,6 +26,8 @@ public class MinecraftListFragment extends Fragment {
     private EditText inputSearchEditText;
     ToolAdapter toolAdapter;
 
+    private boolean land;
+
     List<Tool> toolList;
 
     @Override
@@ -35,9 +37,19 @@ public class MinecraftListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        View infoFrame = getActivity().findViewById(R.id.information);
+
+        land = infoFrame != null && infoFrame.getVisibility() == View.VISIBLE;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_minecraft_list, container, false);
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -86,6 +98,16 @@ public class MinecraftListFragment extends Fragment {
 
             }
         });
+        if (view.findViewById(R.id.container_info) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            MinecraftInfoFragment minecraftInfoFragment = new MinecraftInfoFragment();
+            getFragmentManager().beginTransaction().add(R.id.container_info, minecraftInfoFragment).commit();
+
+        }
+
 
     }
 
@@ -95,9 +117,14 @@ public class MinecraftListFragment extends Fragment {
 
 
     private void selectItem(int position) {
-        Intent intent = new Intent(getActivity(), InfoActivity.class);
-        intent.putExtra(MinecraftInfoFragment.EXTRA_TOOL, toolList.get(position));
-        startActivity(intent);
+        if (land) {
+            MinecraftInfoFragment info = MinecraftInfoFragment.newInstance(toolList.get(position));
+            getFragmentManager().beginTransaction().replace(R.id.information, info).commit();
+        } else {
+            Intent intent = new Intent(getActivity(), InfoActivity.class);
+            intent.putExtra(MinecraftInfoFragment.EXTRA_TOOL, toolList.get(position));
+            startActivity(intent);
+        }
     }
 
     private List<Tool> createToolList(String[] name, String[] description, int[] image) {
