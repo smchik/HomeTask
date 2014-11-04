@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import ua.ck.geekhub.ivanov.hometask.R;
 import ua.ck.geekhub.ivanov.hometask.fragments.MinecraftInfoFragment;
@@ -19,8 +20,6 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        //TODO: назначить действие кнопке:
-        getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         //check landscape mode
@@ -37,4 +36,16 @@ public class InfoActivity extends Activity {
             fm.beginTransaction().add(R.id.container_info, fragment).commit();
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

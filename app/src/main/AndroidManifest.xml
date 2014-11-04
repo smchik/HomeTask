@@ -19,7 +19,6 @@
         <activity
             android:name=".activities.InfoActivity"
             android:label="@string/app_name">
-
         </activity>
     </application>
 

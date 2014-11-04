@@ -3,14 +3,14 @@ package ua.ck.geekhub.ivanov.hometask.fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,6 @@ import ua.ck.geekhub.ivanov.hometask.models.Tool;
 public class MinecraftListFragment extends Fragment {
 
     private ListView toolListView;
-    private EditText inputSearchEditText;
     ToolAdapter toolAdapter;
 
     private boolean land;
@@ -81,23 +80,6 @@ public class MinecraftListFragment extends Fragment {
         });
 
 
-        inputSearchEditText = (EditText) view.findViewById(R.id.inputSearch);
-        inputSearchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                doMySearch(charSequence.toString());
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         if (view.findViewById(R.id.container_info) != null) {
             if (savedInstanceState != null) {
                 return;
@@ -107,8 +89,32 @@ public class MinecraftListFragment extends Fragment {
             getFragmentManager().beginTransaction().add(R.id.container_info, minecraftInfoFragment).commit();
 
         }
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.minecraft, menu);
 
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        //SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                toolAdapter.filter(newText);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // this is your adapter that will be filtered
+                toolAdapter.filter(query);
+                return true;
+            }
+        });
     }
 
     public void doMySearch(String query) {
