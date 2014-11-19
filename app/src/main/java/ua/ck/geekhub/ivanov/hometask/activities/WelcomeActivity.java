@@ -2,7 +2,8 @@ package ua.ck.geekhub.ivanov.hometask.activities;
 
 import android.app.Activity;
 
-import android.app.ActionBar;
+//import android.app.ActionBar;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -12,12 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 
 import ua.ck.geekhub.ivanov.hometask.fragments.NavigationDrawerFragment;
 import ua.ck.geekhub.ivanov.hometask.R;
 
 
-public class WelcomeActivity extends Activity
+public class WelcomeActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -33,6 +36,7 @@ public class WelcomeActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_welcome);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -69,7 +73,7 @@ public class WelcomeActivity extends Activity
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
