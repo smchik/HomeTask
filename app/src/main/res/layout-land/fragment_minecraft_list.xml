@@ -15,7 +15,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/tool"/>
+            android:text="@string/tool"
+            android:textColor="@color/primary_dark_material_dark"/>
 
         <ImageView
             android:layout_width="match_parent"

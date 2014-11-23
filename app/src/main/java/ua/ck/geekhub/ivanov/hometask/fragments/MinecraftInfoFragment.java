@@ -1,6 +1,9 @@
 package ua.ck.geekhub.ivanov.hometask.fragments;
 
+
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -31,6 +34,7 @@ public class MinecraftInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         currentTool = (Tool) getArguments().getSerializable(EXTRA_TOOL);
+        setToolResult(currentTool);
     }
 
     @Override
@@ -49,6 +53,13 @@ public class MinecraftInfoFragment extends Fragment {
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         FlowTextHelper.tryFlowText(text, thumbnailView, messageView, display);
+    }
+
+
+    private void setToolResult(Tool tool) {
+        Intent data = new Intent();
+        data.putExtra("tool", tool);
+        getActivity().setResult(Activity.RESULT_CANCELED, data);
     }
 
     public static MinecraftInfoFragment newInstance(Tool tool) {

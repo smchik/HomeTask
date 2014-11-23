@@ -10,6 +10,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/primary_dark_material_dark"
         android:text="@string/tool"/>
 
     <ImageView

@@ -3,6 +3,7 @@ package ua.ck.geekhub.ivanov.hometask.fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +23,13 @@ import ua.ck.geekhub.ivanov.hometask.models.Tool;
 public class MinecraftListFragment extends Fragment {
 
     private ListView toolListView;
-    ToolAdapter toolAdapter;
+    private ToolAdapter toolAdapter;
 
     private boolean land;
 
-    List<Tool> toolList;
+    private List<Tool> toolList;
+
+    private Tool currentTool;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,27 @@ public class MinecraftListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_minecraft_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_minecraft_list, container, false);
+        return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        currentTool = (Tool) data.getSerializableExtra("tool");
+        System.out.println("currentTool = " + currentTool.getName());
+        if (land) {
+            if (currentTool != null) {
+                MinecraftInfoFragment info = MinecraftInfoFragment.newInstance(currentTool);
+                getFragmentManager().beginTransaction().replace(R.id.information, info).commit();
+            }
+        }
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -79,15 +98,13 @@ public class MinecraftListFragment extends Fragment {
             }
         });
 
-
         if (view.findViewById(R.id.container_info) != null) {
+            MinecraftInfoFragment minecraftInfoFragment = new MinecraftInfoFragment();
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container_info, minecraftInfoFragment).commit();
             if (savedInstanceState != null) {
                 return;
             }
-
-            MinecraftInfoFragment minecraftInfoFragment = new MinecraftInfoFragment();
-            getFragmentManager().beginTransaction().add(R.id.container_info, minecraftInfoFragment).commit();
-
         }
     }
 
@@ -97,6 +114,7 @@ public class MinecraftListFragment extends Fragment {
         inflater.inflate(R.menu.minecraft, menu);
 
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("Search tool");
 
         //SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         //searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -129,7 +147,7 @@ public class MinecraftListFragment extends Fragment {
         } else {
             Intent intent = new Intent(getActivity(), InfoActivity.class);
             intent.putExtra(MinecraftInfoFragment.EXTRA_TOOL, toolList.get(position));
-            startActivity(intent);
+            startActivityForResult(intent, 0);
         }
     }
 

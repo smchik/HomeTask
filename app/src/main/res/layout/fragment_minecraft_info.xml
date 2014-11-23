@@ -19,5 +19,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_gravity="center_horizontal"
         android:layout_toRightOf="@+id/toolImageView"
-        android:bufferType="spannable"/>
+        android:bufferType="spannable"
+        android:textColor="@color/primary_dark_material_dark"/>
 </RelativeLayout>
